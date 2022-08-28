@@ -15,7 +15,7 @@ function calculateWinner(squares) {
 
     for(let i = 0; i < lines.length; i++) {
         const [a, b, c] = lines[i]
-        if (squares[a] && squares[a] == squares[b] && squares[a] == squares[c]) {
+        if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
             return squares[a]
         }
     }
@@ -23,12 +23,6 @@ function calculateWinner(squares) {
     return null;
 }
 
-const jumpTo = step => {
-    this.setState({
-        stepNumber: step,
-        xIsNext: step % 2 == 0
-    })
-}
 
 class Game extends React.Component {
     state = {
@@ -40,6 +34,13 @@ class Game extends React.Component {
         stepNumber: 0,
         xIsNext: true,
 
+    }
+
+    jumpTo = step => {
+        this.setState({
+            stepNumber: step,
+            xIsNext: step % 2 === 0
+        })
     }
 
     handleClick = i => {
@@ -74,8 +75,8 @@ class Game extends React.Component {
             const desc = move ? 'Go to Move #' + move : 'Go to Game Start';
 
             return (
-                <li key={move}>
-                    <button onClick={() => this.jumpTo(move) }>
+                <li key={move} className="list-group-item">
+                    <button onClick={() => this.jumpTo(move) } className="btn btn-success btn-sm">
                         { desc }
                     </button>
                 </li>
@@ -97,9 +98,9 @@ class Game extends React.Component {
                 </div>
                 <div className="game-info">
                     <div>{status}</div>
-                    <ol>
+                    <ul className="list-group">
                         {moves}
-                    </ol>
+                    </ul>
                 </div>
             </div>
         );
